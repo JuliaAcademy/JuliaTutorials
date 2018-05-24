@@ -1,6 +1,6 @@
 # An Introduction to DataFrames
 
-[Bogumił Kamiński](http://bogumilkaminski.pl/about/), May 13, 2018
+[Bogumił Kamiński](http://bogumilkaminski.pl/about/), May 23, 2018
 
 A brief introduction to basic usage of [DataFrames](https://github.com/JuliaData/DataFrames.jl).
 Tested under Julia 0.6.2, DataFrames 0.11.6, CSV 0.2.4, JLD 0.8.3, Missings 0.2.9, CategoricalArrays 0.3.9, FreqTables 0.2.2, DataFramesMeta 0.3.0, StatPlots 0.7.2.
@@ -53,6 +53,7 @@ Changelog:
 | 2018-04-21 | Major update of whole tutorial                                                                    |
 | 2018-05-01 | Added `byrow!` example                                                                            |
 | 2018-05-13 | Added `StatPlots` package to extras                                                               |
+| 2018-05-23 | Improved comments in sections 1 do 5 by [Jane Herriman](https://github.com/xorJane)               |
 
 # Core functions summary
 

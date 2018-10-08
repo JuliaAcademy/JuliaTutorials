@@ -15,9 +15,10 @@
             - [04.Julia绘图简介](./introductory-tutorials/intro-to-julia-ZH/简短版/04.Julia绘图简介.ipynb)
             - [05.Julia很快](./introductory-tutorials/intro-to-julia-ZH/简短版/05.Julia很快.ipynb)
             - [06.多重派发](./introductory-tutorials/intro-to-julia-ZH/简短版/06.多重派发.ipynb)
-        - [00.上手Jupyter_notebook](./introductory-tutorials/intro-to-julia-ZH/00.上手Jupyter_notebook)（与简短版重复）
+        - [00.上手Jupyter_notebook](./introductory-tutorials/intro-to-julia-ZH/00.上手Jupyter_notebook.ipynb)（与简短版重复）
         - [01.新手入门](./introductory-tutorials/intro-to-julia-ZH/01.新手入门.ipynb)
         - [02.字符串](./introductory-tutorials/intro-to-julia-ZH/02.字符串.ipynb)
+        - [03.数据结构](./introductory-tutorials/intro-to-julia-ZH/03.数据结构.ipynb)
         - [09.Julia很快](./introductory-tutorials/intro-to-julia-ZH/09.Julia很快.ipynb)（与简短版重复）
         - [10.多重派发](./introductory-tutorials/intro-to-julia-ZH/10.多重派发.ipynb)（与简短版略有区别）
 

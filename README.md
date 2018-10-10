@@ -19,6 +19,7 @@
         - [01.新手入门](./introductory-tutorials/intro-to-julia-ZH/01.新手入门.ipynb)
         - [02.字符串](./introductory-tutorials/intro-to-julia-ZH/02.字符串.ipynb)
         - [03.数据结构](./introductory-tutorials/intro-to-julia-ZH/03.数据结构.ipynb)
+        - [07.包（Packages）](./introductory-tutorials/intro-to-julia-ZH/07.包（Packages）.ipynb)
         - [09.Julia很快](./introductory-tutorials/intro-to-julia-ZH/09.Julia很快.ipynb)（与简短版重复）
         - [10.多重派发](./introductory-tutorials/intro-to-julia-ZH/10.多重派发.ipynb)（与简短版略有区别）
 

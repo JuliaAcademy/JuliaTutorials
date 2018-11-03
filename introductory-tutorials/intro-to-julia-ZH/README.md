@@ -25,6 +25,7 @@
         - [09.Julia很快](./introductory-tutorials/intro-to-julia-ZH/09.Julia很快.ipynb)（与简短版重复）
         - [10.多重派发](./introductory-tutorials/intro-to-julia-ZH/10.多重派发.ipynb)（与简短版略有区别）
         - [10.1多重派发](./introductory-tutorials/intro-to-julia-ZH/10.1多重派发.ipynb)（与简短版略有区别）
+        - [11.基本线性代数](./introductory-tutorials/intro-to-julia-ZH/11.基本线性代数.ipynb)
 
 
 

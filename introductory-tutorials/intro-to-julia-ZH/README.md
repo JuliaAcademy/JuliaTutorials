@@ -1,6 +1,6 @@
 # 中文版JuliaBoxTutorials
 
-学着玩儿，翻着玩儿
+翻译了基础部分，剩下的比较“高级”的部分。。我不会
 
 已完成： <br>
 - introductory-tutorials
@@ -32,6 +32,7 @@
 待解决： <br>
 - [02.Julia中的线性代数](./introductory-tutorials/intro-to-julia-ZH/简短版/02.Julia中的线性代数.ipynb)中最后一段涉及到矩阵的优化存储？暂未翻译
 - [05.Julia很快](./introductory-tutorials/intro-to-julia-ZH/简短版/05.Julia很快.ipynb)在Windows下没有装gcc，所以没有测试，担心各种多余且重复的Python包安装在C盘Python也没有测试
+- 线性代数让我懵逼，第12篇因子分解啥的不懂
 
 
 <br><br>

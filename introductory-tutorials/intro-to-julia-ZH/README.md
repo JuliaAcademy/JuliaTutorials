@@ -35,6 +35,5 @@
 - 线性代数让我懵逼，第12篇因子分解啥的不懂
 
 
-<br><br>
-QQ群：[247327005](https://shang.qq.com/wpa/qunwpa?idkey=bf9e68557bea4360bee85980a1cfc67fced4343063b3c430cf6c9d57f14a4229)
+
 

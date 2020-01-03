@@ -1,0 +1,23 @@
+name = "Julia for Data Science"
+authors = ["Huda Nassar <nassarhuda@users.noreply.github.com>"]
+
+[deps]
+BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
+CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
+Clustering = "aaaa29a8-35af-508c-8bc3-b662a17a0fe5"
+Conda = "8f4d0f93-b110-5947-807f-2305c1781a2d"
+DataArrays = "0fe7c1db-08c2-54a3-a222-6d1d3b7a471a"
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
+Flux = "587475ba-b771-5e3f-ad9e-33799f191a9c"
+IJulia = "7073ff75-c697-5162-941a-fcdaad2a7d2a"
+Images = "916415d5-f1e6-5110-898d-aaa5f9f070e0"
+LaTeXStrings = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
+MAT = "23992714-dd62-5051-b70f-ba57cb901cac"
+MultivariateStats = "6f286f6a-111f-5878-ab1e-185364afe411"
+NearestNeighbors = "b8a86587-4115-5ab1-83bc-aa920d37bbce"
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+PyCall = "438e738f-606a-5dbb-bf0a-cddfbfd45ab0"
+PyPlot = "d330b81b-6aea-500a-939a-2ce795aea3ee"
+RDatasets = "ce6b1742-4840-55fa-b093-852dadbb1d8b"
+StatsPlots = "f3b207a7-027a-5e70-b257-86293d7955fd"

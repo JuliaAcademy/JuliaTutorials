@@ -69,9 +69,9 @@ histogram2d(set1,set2,nbins=20,colorbar=true)
 
 using DataFrames
 houses = readtable("houses.csv")
-filter_houses = houses[houses[:sq__ft].>0,:]
-x = filter_houses[:sq__ft]
-y = filter_houses[:price]
+filter_houses = houses[houses[!, :sq__ft].>0,:]
+x = filter_houses[!, :sq__ft]
+y = filter_houses[!, :price]
 
 gh = histogram2d(x,y,nbins=20,colorbar=true)
 xaxis!(gh,"square feet")
@@ -91,9 +91,10 @@ yaxis!(gh,"price")
 # Let's do that through **box plots** and **violin plots**.
 # ------------------------------------------------------------------------------------------
 
-using StatPlots
+using StatsPlots
+
 y = rand(10000,6) # generate 6 random samples of size 1000 each
-f2 = violin(["Series 1" "Series 2" "Series 3" "Series 4" "Series 5"],y,leg=false,color=:red)
+f2 = violin(["Series 1" "Series 2" "Series 3" "Series 4" "Series 5"], y, leg=false, color=:red)
 
 boxplot!(["Series 1" "Series 2" "Series 3" "Series 4" "Series 5"],y,leg=false,color=:green)
 
@@ -107,8 +108,8 @@ some_cities = ["SACRAMENTO","RANCHO CORDOVA","RIO LINDA","CITRUS HEIGHTS","NORTH
 
 fh = plot(xrotation=90)
 for ucity in some_cities
-    subs = filter_houses[filter_houses[:city].==ucity,:]
-    city_prices = subs[:price]
+    subs = filter_houses[filter_houses[!, :city].==ucity,:]
+    city_prices = subs[!, :price]
     violin!(fh,[ucity],city_prices,leg=false)
 end
 display(fh)
@@ -138,7 +139,7 @@ y = vcat(ones(Int,20),1:10,10*ones(70));
 
 xkcd()
 fig = figure()
-ax = axes()
+ax = PyPlot.axes()
 p = PyPlot.plot(x,y)
 annotate("some \n caption",xy=[30;10],arrowprops=Dict("arrowstyle"=>"->"),xytext=[40;7])
 
@@ -152,12 +153,12 @@ xlabel("index")
 ylabel("value")
 title("our first xkcd plot")
 
-ax[:spines]["top"][:set_color]("none") 
-ax[:spines]["right"][:set_color]("none") 
-ax[:spines]["left"][:set_color]("none") 
-ax[:spines]["bottom"][:set_color]("none") 
+ax.spines["top"].set_color("none") 
+ax.spines["right"].set_color("none") 
+ax.spines["left"].set_color("none") 
+ax.spines["bottom"].set_color("none") 
 
-fig[:canvas][:draw]()
+fig.canvas.draw()
 
 # ------------------------------------------------------------------------------------------
 # And finally, display the figure!

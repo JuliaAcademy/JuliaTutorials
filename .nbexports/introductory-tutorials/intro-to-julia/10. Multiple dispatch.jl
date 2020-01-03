@@ -73,8 +73,8 @@ foo("hello", "hi!")
 # ```
 # we didn't overwrite or replace
 # ```julia
-# foo(y::String, y::String)```
-#
+# foo(y::String, y::String)
+# ```
 # Instead, we just added an additional ***method*** to the ***generic function*** called
 # `foo`.
 #

@@ -24,8 +24,7 @@ If you're new to Julia, you can do that by following these steps:
      open a Jupyter tab in your browser.
 3. Last, download the tutorials from this repository, via the github Clone/Download button above, or clicking this link:
     - https://github.com/JuliaComputing/JuliaBoxTutorials/archive/master.zip
-    - (If you've never used GitHub before, it's a place to collaborate on open source software. Julia itself is also stored on github!: https://github.com/JuliaLang/julia)
+    - (If you've never used GitHub before, it's a place to collaborate on open source software. Julia itself is also [developed on github!](https://github.com/JuliaLang/julia))
 
 And now from the Jupyter tab in your browser, you can navigate to the folder where you downloaded the tutorials, and then click
 on the name of one of them to get started! Enjoy!
-

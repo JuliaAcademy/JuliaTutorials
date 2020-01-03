@@ -14,8 +14,12 @@
 # ## Part 1: plot math (specifically latex equations) in our plots
 # ------------------------------------------------------------------------------------------
 
+# using Pkg
+# Pkg.add("LaTeXStrings")
 using LaTeXStrings
-using Plots
+# using Plots
+# plotly()
+using PyPlot # both loads plot()
 pyplot()
 x = 1:0.2:4
 
@@ -35,7 +39,7 @@ y1 = sqrt.(x)
 y2 = log.(x)
 y3 = x.^2
 
-f1 = plot(x,y1,legend = false)
+f1 = plot(x,y1, legend = false)
 plot!(f1, x,y2) # "plot!" means "plot on the same canvas we just plotted on"
 plot!(f1, x,y3)
 title!("Plot $x2 vs. $logx vs. $sqrtx")
@@ -170,5 +174,3 @@ display(fig)
 #
 # https://tinyurl.com/JuliaDataScience
 # ------------------------------------------------------------------------------------------
-
-

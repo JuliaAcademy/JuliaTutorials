@@ -2,6 +2,8 @@
 # # Julia for Data Science
 # Prepared by [@nassarhuda](https://github.com/nassarhuda)! 😃
 #
+# `Last updated on 06/Sep/2018`
+#
 # In this tutorial, we will discuss why *Julia* is the tool you want to use for your data
 # science applications.
 #
@@ -39,15 +41,25 @@ P = download("https://raw.githubusercontent.com/nassarhuda/easy_data/master/prog
 ;ls
 
 # ------------------------------------------------------------------------------------------
-# And there's the *.csv file we downloaded!
-#
-# By default, `readcsv` will fill an array with the data stored in the input .csv file. If
-# we set the keyword argument `header` to `true`, we'll get a second output array.
+# Add the CSV package to Julia using `add()`. `CSV.read()` will automatically  define
+# headers from the .csv file if we set the `header` argument as `true`.
+# We could also use the `DelimitedFiles` package and its `readdlm()` function as shown
+# below.
 # ------------------------------------------------------------------------------------------
 
-P,H = readcsv("programminglanguages.csv",header=true)
+# using Pkg
+# Pkg.add("CSV") # for CSV.read()
+# Pkg.add("DelimitedFiles") # for readdlm
 
-P
+# using CSV
+# P = CSV.read("programminglanguages.csv",header=true)
+# or
+using DelimitedFiles
+P,H= readdlm("programminglanguages.csv",',',header=true)
+
+P # stores the dataset
+
+H # stores the header names
 
 # ------------------------------------------------------------------------------------------
 # Here we write our first small function. <br>
@@ -78,7 +90,7 @@ language_created_year_v2(P,"julia")
 # **Reading and writing to files is really easy in Julia.** <br>
 #
 # You can use different delimiters with the function `readdlm` (`readcsv` is just an
-# instance of `readdlm`). <br>
+# instance of `readdlm`) available with the `DelimitedFiles` package. <br>
 #
 # To write to files, we can use `writecsv` or `writedlm`. <br>
 #
@@ -151,6 +163,7 @@ dict[2003]
 # This requires loading the `DataFrames` package
 # ------------------------------------------------------------------------------------------
 
+# Pkg.add("DataFrames")
 using DataFrames
 df = DataFrame(year = P[:,1], language = P[:,2])
 
@@ -193,7 +206,13 @@ describe(df)
 # We can use RDatasets to play around with pre-existing datasets
 # ------------------------------------------------------------------------------------------
 
+# using Pkg
+# Pkg.add("RData")
+# Pkg.add("RDatasets")
+# Pkg.add("RCall") # should have R installed to build RCall
+
 using RDatasets
+# Pkg.instantiate()
 iris = dataset("datasets", "iris")
 
 # ------------------------------------------------------------------------------------------
@@ -212,11 +231,17 @@ describe(iris)
 # ------------------------------------------------------------------------------------------
 # ### `DataArrays`
 #
+# ##### Note: `DataArrays` is [no longer
+# available](https://github.com/JuliaStats/JuliaStats.github.io/pull/6) from `v1.0.0`.
+# Alternate ways to use arrays with missing values are described
+# [here](https://docs.julialang.org/en/v1/manual/missing/#Arrays-With-Missing-Values-1).
+#
 # You can create `DataArray`s as follows
 # ------------------------------------------------------------------------------------------
 
-using DataArrays
+Pkg.add("DataArrays")
 
+using DataArrays
 foods = @data(["apple", "cucumber", "tomato", "banana"])
 calories = @data([missing,47,22,105])
 typeof(calories)
@@ -281,6 +306,8 @@ DF = join(dataframe_calories,dataframe_prices,on=:item)
 # ### FileIO
 # ------------------------------------------------------------------------------------------
 
+# Pkg.add("ImageMagick")
+# Pkg.add("FileIO")
 using FileIO
 julialogo = download("https://avatars0.githubusercontent.com/u/743164?s=200&v=4","julialogo.png")
 
@@ -315,6 +342,7 @@ X1 = load("julialogo.png")
 # Let's try using MAT to write a file that stores a matrix.
 # ------------------------------------------------------------------------------------------
 
+# Pkg.add("MAT")
 using MAT
 
 A = rand(5,5)
@@ -332,5 +360,3 @@ read(newfile,"A")
 names(newfile)
 
 close(newfile)
-
-

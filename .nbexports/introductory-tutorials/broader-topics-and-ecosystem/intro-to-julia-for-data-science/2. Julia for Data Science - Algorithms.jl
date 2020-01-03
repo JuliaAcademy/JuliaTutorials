@@ -11,6 +11,8 @@
 # ------------------------------------------------------------------------------------------
 
 using DataFrames
+using CSV
+using Pkg # to add other packages if needed
 
 # ------------------------------------------------------------------------------------------
 # ### Example 1: Kmeans Clustering
@@ -22,12 +24,13 @@ using DataFrames
 # ------------------------------------------------------------------------------------------
 
 download("http://samplecsvs.s3.amazonaws.com/Sacramentorealestatetransactions.csv","houses.csv")
-houses = readtable("houses.csv")
+houses = CSV.read("houses.csv")
 
 # ------------------------------------------------------------------------------------------
 # Let's use `Plots` to plot with the `pyplot` backend.
 # ------------------------------------------------------------------------------------------
 
+# Pkg.add("Plots")
 using Plots
 plot(size=(500,500),leg=false)
 
@@ -36,7 +39,9 @@ plot(size=(500,500),leg=false)
 # ------------------------------------------------------------------------------------------
 
 x = houses[:sq__ft]
+# x = houses[7] # equivalent, useful if file has no header
 y = houses[:price]
+# y = houses[10] # equivalent
 scatter(x,y,markersize=3)
 
 # ------------------------------------------------------------------------------------------
@@ -47,7 +52,7 @@ scatter(x,y,markersize=3)
 # Filtering these houses out is easy to do!
 # ------------------------------------------------------------------------------------------
 
-filter_houses = houses[houses[:sq__ft].>0,:]
+filter_houses = houses[houses[:sq__ft].>0,:] # dot broadcasting
 x = filter_houses[:sq__ft]
 y = filter_houses[:price]
 scatter(x,y)
@@ -57,12 +62,15 @@ scatter(x,y)
 # ------------------------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------------------------
-# We can filter a `DataFrame` by feature value too, using the `by` function.
+# We can filter a `DataFrame` by feature value too, using the `by` function. `mean()` has
+# been moved into the `Statistics` module in the standard library; you may need to first
+# enter `using Statistics` to start using them.
 # ------------------------------------------------------------------------------------------
 
-by(filter_houses,:_type,size)
+by(filter_houses,:type,size)
 
-by(filter_houses,:_type,filter_houses->mean(filter_houses[:price]))
+using Statistics
+by(filter_houses,:type,filter_houses->mean(filter_houses[:price])) 
 
 # ------------------------------------------------------------------------------------------
 # Now let's do some kmeans clustering on this data.
@@ -70,49 +78,48 @@ by(filter_houses,:_type,filter_houses->mean(filter_houses[:price]))
 # First, we can load the `Clustering` package to do this.
 # ------------------------------------------------------------------------------------------
 
-#Pkg.add("Clustering")
+# using Pkg
+# Pkg.add("Clustering")
 using Clustering
 
 # ------------------------------------------------------------------------------------------
+# Let us see how `Clustering` works with a generic example first.
+# ------------------------------------------------------------------------------------------
+
+# make a random dataset with 1000 points
+# each point is a 5-dimensional vector
+J = rand(5, 1000)
+R = kmeans(J, 20; maxiter=200, display=:iter) 
+# performs K-means over X, trying to group them into 20 clusters
+# set maximum number of iterations to 200
+# set display to :iter, so it shows progressive info at each iteration
+
+# ------------------------------------------------------------------------------------------
+# Now, let's get back to the problem in hand and see how this can be applied over there.
 # Let's store the features `:latitude` and `:longitude` in an array `X` that we will pass to
-# `kmeans`.
-#
-# First we add data for `:latitude` and `:longitude` to a new `DataFrame` called `X`.
+# `kmeans`. First we add data for `:latitude` and `:longitude` to a new `DataFrame` called
+# `X`.
 # ------------------------------------------------------------------------------------------
 
 X = filter_houses[[:latitude,:longitude]]
 
 # ------------------------------------------------------------------------------------------
-# and then we convert `X` to an `Array` via
-#
-# ```julia
-# X = Array(X)
-# ```
-# or
-# ```julia
-# X = convert(Array, X)
-# ```
-#
-# In particular,
-#
-# ```julia
-# X = Array{Float64}(X)
-# ```
-# or
-# ```julia
-# X = convert(Array{Float64}, X)
-# ```
-# will turn `X` into an `Array` that stores `Float64`s.
+# and then we convert `X` to an `Array` via `X = convert(Array, X)`. This will turn `X` into
+# an `Array`.
 # ------------------------------------------------------------------------------------------
 
-X = Array{Float64}(X)
+#X = Array{Float64}(X)
+X = convert(Array,X)
+#X = convert(Array{Float64},X)
 
 # ------------------------------------------------------------------------------------------
-# Each feature is stored as a row of `X`, but we can transpose to make these features
-# columns of `X`.
+# We now take the transpose of `X` using the `transpose()` function. A transpose is required
+# since `kmeans()` function takes each row as a `feature`, and each column a `data point`.
 # ------------------------------------------------------------------------------------------
 
-X = X'
+X = transpose(X)
+#X = X' # also does the same thing
+X
 
 # ------------------------------------------------------------------------------------------
 # As a first pass at guessing how many clusters we might need, let's use the number of zip
@@ -122,20 +129,23 @@ X = X'
 # ------------------------------------------------------------------------------------------
 
 k = length(unique(filter_houses[:zip])) 
+# there should be atleast 2 distinct features (k>=2) to group the data points
+println("unique zip codes are ",k)
+
 
 # ------------------------------------------------------------------------------------------
-# We can use the `kmeans` function to do kmeans clustering!
+# Now, we can use the `kmeans()` function to do kmeans clustering!
 # ------------------------------------------------------------------------------------------
 
-C = kmeans(X,k) # try changing k
+using Clustering
+C = kmeans(X, k)
 
 # ------------------------------------------------------------------------------------------
 # Now let's create a new data frame, `df`, with all the same data as `filter_houses` that
 # also includes a column for the cluster to which each house has been assigned.
 # ------------------------------------------------------------------------------------------
 
-df = DataFrame(cluster = C.assignments,city = filter_houses[:city],
-    latitude = filter_houses[:latitude],longitude = filter_houses[:longitude],zip = filter_houses[:zip])
+df = DataFrame(cluster=C.assignments,city=filter_houses[:city],latitude=filter_houses[:latitude],longitude=filter_houses[:longitude],zip=filter_houses[:zip])
 
 # ------------------------------------------------------------------------------------------
 # Let's plot each cluster as a different color.
@@ -186,6 +196,7 @@ plot(clusters_figure,zips_figure,layout=(2, 1))
 # For this example, let's start by loading the `NearestNeighbors` package.
 # ------------------------------------------------------------------------------------------
 
+# Pkg.add("NearestNeighbors")
 using NearestNeighbors
 
 # ------------------------------------------------------------------------------------------
@@ -438,7 +449,7 @@ accuracy(x, y) = mean(argmax(m(x)) .== argmax(y))
 # Use `X` to create our training data and then declare our evaluation function:
 # ------------------------------------------------------------------------------------------
 
-dataset = repeated((X, Y), 200)
+datasetx = repeated((X, Y), 200)
 evalcb = () -> @show(loss(X, Y))
 opt = ADAM(Flux.params(m))
 
@@ -454,7 +465,7 @@ opt = ADAM(Flux.params(m))
 # **Now we can train our model and look at the accuracy thereafter.**
 # ------------------------------------------------------------------------------------------
 
-Flux.train!(loss, dataset, opt, cb = throttle(evalcb, 10))
+Flux.train!(loss, datasetx, opt, cb = throttle(evalcb, 10))
 
 accuracy(X, Y)
 
@@ -470,7 +481,7 @@ tX = hcat(float.(reshape.(MNIST.images(:test), :))...)
 
 test_image = m(tX[:,1])
 
-indmax(test_image) - 1
+maximum(test_image) - 1 
 
 # ------------------------------------------------------------------------------------------
 # The largest element of `test_image` is the 8th element, so our model says that test_image
@@ -495,7 +506,7 @@ colorview(Gray, t1)
 # ------------------------------------------------------------------------------------------
 
 xvals = repeat(1:0.5:10,inner=2)
-yvals = 3+xvals+2*rand(length(xvals))-1
+yvals = xvals+(2*rand(length(xvals)).-1)
 scatter(xvals,yvals,color=:black,leg=false)
 
 # ------------------------------------------------------------------------------------------
@@ -522,7 +533,7 @@ end
 # ------------------------------------------------------------------------------------------
 
 a,b = find_best_fit(xvals,yvals)
-ynew = a*xvals + b
+ynew = a.*xvals.+b
 
 plot!(xvals,ynew)
 
@@ -532,7 +543,7 @@ plot!(xvals,ynew)
 
 xvals = 1:100000;
 xvals = repeat(xvals,inner=3);
-yvals = 3+xvals+2*rand(length(xvals))-1;
+yvals = xvals+(2*rand(length(xvals)).-1);
 
 @show size(xvals)
 @show size(yvals)
@@ -578,5 +589,3 @@ using BenchmarkTools
 @btime a,b = find_best_fit_python(xvals,yvals)
 
 @btime a,b = find_best_fit(xvals,yvals)
-
-

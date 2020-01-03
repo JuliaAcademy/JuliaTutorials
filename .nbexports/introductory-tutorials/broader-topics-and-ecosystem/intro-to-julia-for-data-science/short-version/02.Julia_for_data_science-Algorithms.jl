@@ -10,7 +10,7 @@
 # 1. PCA for dimensionality reduction
 # ------------------------------------------------------------------------------------------
 
-using DataFrames
+using DataFrames, Statistics
 
 # ------------------------------------------------------------------------------------------
 # We'll be using the same data for all three of these examples -- the Sacramento real estate
@@ -27,14 +27,17 @@ houses = readtable("houses.csv")
 # ------------------------------------------------------------------------------------------
 
 using Plots
-pyplot(size=(500,500),leg=false)
+pyplot()
+plot(size=(500,500),leg=false)
 
 # ------------------------------------------------------------------------------------------
 # Now let's create a scatter plot to show the price of a house vs. its square footage,
 # ------------------------------------------------------------------------------------------
 
-x = houses[:sq__ft]
-y = houses[:price]
+x = houses[!, :sq__ft]
+# x = houses[7] # equivalent, useful if file has no header
+y = houses[!, :price]
+# y = houses[10] # equivalent
 scatter(x,y,markersize=3)
 
 # ------------------------------------------------------------------------------------------
@@ -45,9 +48,9 @@ scatter(x,y,markersize=3)
 # Filtering these houses out is easy to do!
 # ------------------------------------------------------------------------------------------
 
-filter_houses = houses[houses[:sq__ft].>0,:]
-x = filter_houses[:sq__ft]
-y = filter_houses[:price]
+filter_houses = houses[houses[!, :sq__ft] .> 0, :]  # dot broadcasting
+x = filter_houses[!, :sq__ft]
+y = filter_houses[!, :price]
 scatter(x,y)
 
 # ------------------------------------------------------------------------------------------
@@ -58,9 +61,9 @@ scatter(x,y)
 # We can filter a `DataFrame` by feature value too, using the `by` function.
 # ------------------------------------------------------------------------------------------
 
-by(filter_houses,:_type,size)
+by(filter_houses,:type,size)
 
-by(filter_houses,:_type,filter_houses->mean(filter_houses[:price]))
+by(filter_houses,:type,filter_houses->mean(filter_houses[!, :price]))
 
 # ------------------------------------------------------------------------------------------
 # ### Example 1: Kmeans Clustering
@@ -78,15 +81,15 @@ using Clustering
 # `kmeans`.
 # ------------------------------------------------------------------------------------------
 
-X = filter_houses[[:latitude,:longitude]]
-X = Array(X)
+X = filter_houses[!, [:latitude,:longitude]]
+X = Array{Float64}(X)
 
 # ------------------------------------------------------------------------------------------
 # Each feature is stored as a row of `X`, but we can transpose to make these features
 # columns of `X`.
 # ------------------------------------------------------------------------------------------
 
-X = X'
+X = transpose(X)
 
 # ------------------------------------------------------------------------------------------
 # Now let's plot longitudes vs. latitudes for this data!
@@ -94,7 +97,7 @@ X = X'
 
 location_figure = scatter(X[1, :], X[2, :])
 # Alternatively....
-# location_figure = scatter(filter_houses[:latitude], filter_houses[:longitude])
+# location_figure = scatter(filter_houses[!, :latitude], filter_houses[!, :longitude])
 xlabel!("Latitude")
 ylabel!("Longitude")
 title!("Houses plotted by location")
@@ -107,7 +110,7 @@ display(location_figure)
 # (Try changing this to see how it impacts results!)
 # ------------------------------------------------------------------------------------------
 
-k = length(unique(filter_houses[:zip])) 
+k = length(unique(filter_houses[!, :zip])) 
 
 # ------------------------------------------------------------------------------------------
 # We can use the `kmeans` function to do kmeans clustering!
@@ -120,8 +123,8 @@ C = kmeans(X,k) # try changing k
 # also includes a column for the cluster to which each house has been assigned.
 # ------------------------------------------------------------------------------------------
 
-df = DataFrame(cluster = C.assignments,city = filter_houses[:city],
-    latitude = filter_houses[:latitude],longitude = filter_houses[:longitude],zip = filter_houses[:zip])
+df = DataFrame(cluster = C.assignments,city = filter_houses[!,:city],
+    latitude = filter_houses[!,:latitude],longitude = filter_houses[!,:longitude],zip = filter_houses[!,:zip])
 
 # ------------------------------------------------------------------------------------------
 # Let's plot each cluster as a different color.
@@ -130,10 +133,10 @@ df = DataFrame(cluster = C.assignments,city = filter_houses[:city],
 clusters_figure = plot()
 for i = 1:k
     # filter df to grab all houses in the ith cluster
-    clustered_houses = df[df[:cluster].== i,:]
+    clustered_houses = df[df[!,:cluster].== i,:]
     # grab latitudes and longitudes of all houses in the ith cluster
-    xvals = clustered_houses[:latitude]
-    yvals = clustered_houses[:longitude]
+    xvals = clustered_houses[!,:latitude]
+    yvals = clustered_houses[!,:longitude]
     # plot latitudes and longitudes of all houses in the ith cluster
     scatter!(clusters_figure,xvals,yvals,markersize=4)
 end
@@ -146,14 +149,14 @@ display(clusters_figure)
 # And now let's try coloring them by zip code.
 # ------------------------------------------------------------------------------------------
 
-unique_zips = unique(filter_houses[:zip])
+unique_zips = unique(filter_houses[!,:zip])
 zips_figure = plot()
 for uzip in unique_zips
     # filter houses by zipcode
-    subs = filter_houses[filter_houses[:zip].==uzip,:]
+    subs = filter_houses[filter_houses[!,:zip].==uzip,:]
     # grab the latitudes and longitudes of all houses in a given zipcode/subdivision
-    x = subs[:latitude]
-    y = subs[:longitude]
+    x = subs[!, :latitude]
+    y = subs[!, :longitude]
     # plot the houses in this zipcode by latitude and longitude!
     scatter!(zips_figure,x,y)
 end
@@ -199,8 +202,8 @@ idxs, dists = knn(kdtree, point, knearest, true)
 # We'll first generate a plot with all of the houses in the same color,
 # ------------------------------------------------------------------------------------------
 
-x = filter_houses[:latitude];
-y = filter_houses[:longitude];
+x = filter_houses[!,:latitude];
+y = filter_houses[!,:longitude];
 scatter(x,y);
 
 # ------------------------------------------------------------------------------------------

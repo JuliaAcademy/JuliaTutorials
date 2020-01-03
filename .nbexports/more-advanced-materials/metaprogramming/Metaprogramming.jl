@@ -27,7 +27,7 @@ x = "2+2"
 # We can then explicitly tell Julia to evaluate it later on.
 # ------------------------------------------------------------------------------------------
 
-eval(parse(ans))
+eval(Meta.parse(ans))
 
 # ------------------------------------------------------------------------------------------
 # Why go through this complicated way to add numbers? The trick is that when we have the
@@ -35,9 +35,9 @@ eval(parse(ans))
 # imagine replacing `+` with `-`.
 # ------------------------------------------------------------------------------------------
 
-x = replace(x, "+", "-")
+x = replace(x, "+"=>"-")
 
-eval(parse(x))
+eval(Meta.parse(x))
 
 # ------------------------------------------------------------------------------------------
 # We don't actually want to work with strings here; Julia has a much more powerful way to
@@ -103,7 +103,7 @@ ex = :(foo() = println("I'm foo!"))
 # It doesn't actually do anything; yet.
 # ------------------------------------------------------------------------------------------
 
-foo()
+foo()  # throws UndefVarError
 
 # ------------------------------------------------------------------------------------------
 # But evaluating `ex` brings `foo` to life!
@@ -152,7 +152,7 @@ baz()
 # $$sin(x) = \sum_{k=1}^{\infty} \frac{(-1)^k}{(1+2k)!} x^{1+2k}$$
 # ------------------------------------------------------------------------------------------
 
-mysin(x) = sum((-1)^k/factorial(1.0+2k) * x^(1+2k) for k = 0:5)
+mysin(x) = sum((-1)^k/factorial(1+2k) * x^(1+2k) for k = 0:5)
 
 mysin(0.5), sin(0.5)
 
@@ -280,6 +280,7 @@ ex.args
 # in an expression, and increments them.
 # ------------------------------------------------------------------------------------------
 
+# import Pkg; Pkg.add("MacroTools")
 using MacroTools
 using MacroTools: postwalk
 

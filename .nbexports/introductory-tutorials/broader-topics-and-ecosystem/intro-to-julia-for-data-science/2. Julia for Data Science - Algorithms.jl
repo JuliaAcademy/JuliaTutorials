@@ -39,7 +39,9 @@ plot(size=(500,500),leg=false)
 # ------------------------------------------------------------------------------------------
 
 x = houses[!, :sq__ft]
+# x = houses[7] # equivalent, useful if file has no header
 y = houses[!, :price]
+# y = houses[10] # equivalent
 scatter(x,y,markersize=3)
 
 # ------------------------------------------------------------------------------------------
@@ -50,7 +52,7 @@ scatter(x,y,markersize=3)
 # Filtering these houses out is easy to do!
 # ------------------------------------------------------------------------------------------
 
-filter_houses = houses[houses[!, :sq__ft].>0,:]
+filter_houses = houses[houses[!, :sq__ft] .> 0, :]  # dot broadcasting
 x = filter_houses[!, :sq__ft]
 y = filter_houses[!, :price]
 scatter(x,y)
@@ -61,6 +63,8 @@ scatter(x,y)
 
 # ------------------------------------------------------------------------------------------
 # We can filter a `DataFrame` by feature value too, using the `by` function.
+# The `mean()` function comes from the `Statistics` module in the standard library, which we
+# get from running `using Statistics` at the top of this file.
 # ------------------------------------------------------------------------------------------
 
 by(filter_houses,:type,size)
@@ -77,6 +81,20 @@ by(filter_houses,:type,filter_houses->mean(filter_houses[!, :price]))
 using Clustering
 
 # ------------------------------------------------------------------------------------------
+# Let us see how `Clustering` works with a generic example first.
+# ------------------------------------------------------------------------------------------
+
+# make a random dataset with 1000 points
+# each point is a 5-dimensional vector
+J = rand(5, 1000)
+R = kmeans(J, 20; maxiter=200, display=:iter) 
+# performs K-means over X, trying to group them into 20 clusters
+# set maximum number of iterations to 200
+# set display to :iter, so it shows progressive info at each iteration
+
+# ------------------------------------------------------------------------------------------
+# Now, let's get back to the problem in hand and see how this can be applied over there.
+#
 # Let's store the features `:latitude` and `:longitude` in an array `X` that we will pass to
 # `kmeans`.
 #
@@ -96,7 +114,8 @@ X = filter_houses[!, [:latitude,:longitude]]
 # X = convert(Array, X)
 # ```
 #
-# In particular,
+# Since we know this array has no missing values, we can also change the output type of the
+# array to just Float64s, which we'll need for Clustering below:
 #
 # ```julia
 # X = Array{Float64}(X)
@@ -105,17 +124,19 @@ X = filter_houses[!, [:latitude,:longitude]]
 # ```julia
 # X = convert(Array{Float64}, X)
 # ```
-# will turn `X` into an `Array` that stores `Float64`s.
+# to turn `X` into an `Array` that stores `Float64`s.
 # ------------------------------------------------------------------------------------------
 
 X = Array{Float64}(X)
 
 # ------------------------------------------------------------------------------------------
-# Each feature is stored as a row of `X`, but we can transpose to make these features
-# columns of `X`.
+# We now take the transpose of `X` using the `transpose()` function. A transpose is required
+# since `kmeans()` function takes each row as a `feature`, and each column a `data point`.
 # ------------------------------------------------------------------------------------------
 
-X = X'
+X = transpose(X)
+#X = X'  # (conjugate transposition) also does the same thing (but only for real-valued arrays).
+X
 
 # ------------------------------------------------------------------------------------------
 # As a first pass at guessing how many clusters we might need, let's use the number of zip
@@ -124,21 +145,24 @@ X = X'
 # (Try changing this to see how it impacts results!)
 # ------------------------------------------------------------------------------------------
 
-k = length(unique(filter_houses[!, :zip])) 
+k = length(unique(filter_houses[!, :zip]))
+# there should be atleast 2 distinct features (k>=2) to group the data points
+println("unique zip codes are ",k)
 
 # ------------------------------------------------------------------------------------------
 # We can use the `kmeans` function to do kmeans clustering!
 # ------------------------------------------------------------------------------------------
 
-C = kmeans(X,k) # try changing k
+using Clustering
+C = kmeans(X, k) # try changing k
 
 # ------------------------------------------------------------------------------------------
 # Now let's create a new data frame, `df`, with all the same data as `filter_houses` that
 # also includes a column for the cluster to which each house has been assigned.
 # ------------------------------------------------------------------------------------------
 
-df = DataFrame(cluster = C.assignments,city = filter_houses[!, :city],
-    latitude = filter_houses[!, :latitude],longitude = filter_houses[!, :longitude],zip = filter_houses[!, :zip])
+df = DataFrame(cluster=C.assignments, city=filter_houses[!, :city],
+    latitude=filter_houses[!, :latitude], longitude=filter_houses[!, :longitude], zip=filter_houses[!, :zip])
 
 # ------------------------------------------------------------------------------------------
 # Let's plot each cluster as a different color.
@@ -443,7 +467,7 @@ methodswith(typeof(ps))
 # Use `X` to create our training data and then declare our evaluation function:
 # ------------------------------------------------------------------------------------------
 
-dataset = repeated((X, Y), 200)
+datasetx = repeated((X, Y), 200)
 evalcb = () -> @show(loss(X, Y))
 ps = Flux.params(m)
 
@@ -460,7 +484,7 @@ ps = Flux.params(m)
 # ------------------------------------------------------------------------------------------
 
 opt = ADAM()
-Flux.train!(loss, ps, dataset, opt, cb = throttle(evalcb, 10))
+Flux.train!(loss, ps, datasetx, opt, cb = throttle(evalcb, 10))
 
 accuracy(X, Y)
 

@@ -2,6 +2,8 @@
 # # Julia for Data Science
 # Prepared by [@nassarhuda](https://github.com/nassarhuda)! 😃
 #
+# `Last updated on 03/Jan/2020`
+#
 # In this tutorial, we will discuss why *Julia* is the tool you want to use for your data
 # science applications.
 #
@@ -44,6 +46,23 @@ P = download("https://raw.githubusercontent.com/nassarhuda/easy_data/master/prog
 # Now let's load it into Julia
 # ------------------------------------------------------------------------------------------
 
+# ------------------------------------------------------------------------------------------
+# We'll use the `DelimitedFiles` standard library package and its `readdlm()` function as
+# shown
+# below.
+#
+# (Today, the [CSV.jl](https://juliadata.github.io/CSV.jl/stable/) package is the
+# recommended way to load CSVs in Julia. We can install it via `Pkg.add()`, and load .csv
+# files using `CSV.read()`. This tutorial hasn't been updated to use CSV.jl yet.)
+# ------------------------------------------------------------------------------------------
+
+# using Pkg
+# Pkg.add("CSV") # for CSV.read()
+# Pkg.add("DelimitedFiles") # for readdlm
+
+# using CSV
+# P = CSV.read("programminglanguages.csv",header=true)
+# or
 using DelimitedFiles  # Standard library in Base
 
 # ------------------------------------------------------------------------------------------
@@ -54,7 +73,9 @@ using DelimitedFiles  # Standard library in Base
 
 P,H = readdlm("programminglanguages.csv", ',', header=true)
 
-P
+P # stores the dataset
+
+H # stores the header names
 
 # ------------------------------------------------------------------------------------------
 # Here we write our first small function. <br>
@@ -84,10 +105,10 @@ language_created_year_v2(P,"julia")
 # ------------------------------------------------------------------------------------------
 # **Reading and writing to files is really easy in Julia.** <br>
 #
-# You can use different delimiters with the function `readdlm` (`readcsv` is just an
-# instance of `readdlm`). <br>
+# You can use different delimiters with the function `readdlm`, from the `DelimitedFiles`
+# package. <br>
 #
-# To write to files, we can use `writecsv` or `writedlm`. <br>
+# To write to files, we can use `writedlm`. <br>
 #
 # Let's write this same data to a file with a different delimiter.
 # ------------------------------------------------------------------------------------------
@@ -250,6 +271,9 @@ describe(iris)
 #
 # Julia 1.0 and beyond has native support for `missing` values. (Before Julia 1.0, this was
 # done via the DataArrays.jl package.)
+# More information on using arrays with missing values can be found
+# [in the Julia documentation](https://docs.julialang.org/en/v1/manual/missing/#Arrays-With-
+# Missing-Values-1).
 # ------------------------------------------------------------------------------------------
 
 foods = ["apple", "cucumber", "tomato", "banana"]

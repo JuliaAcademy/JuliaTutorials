@@ -46,19 +46,20 @@ P = download("https://raw.githubusercontent.com/nassarhuda/easy_data/master/prog
 # ------------------------------------------------------------------------------------------
 # And there's the *.csv file we downloaded!
 #
-# By default, `readcsv` will fill an array with the data stored in the input .csv file. If
-# we set the keyword argument `header` to `true`, we'll get a second output array.
+# By default, `readdlm` will fill an array with the data stored in the input .csv file. If
+# we set the keyword argument `header` to `true`, we'll get a second output array for the
+# headers.
 # ------------------------------------------------------------------------------------------
 
-P,H = readcsv("programminglanguages.csv",header=true)
+using DelimitedFiles
+P,H = readdlm("programminglanguages.csv",header=true)
 
 P
 
 # ------------------------------------------------------------------------------------------
-# You can use different delimiters with the function `readdlm` (`readcsv` is just an
-# instance of `readdlm`). <br>
+# You can use different delimiters with the function `readdlm`.
 #
-# To write to files, we can use `writecsv` or `writedlm`. <br>
+# To write to files, we can use `writedlm`. <br>
 #
 # Let's write this same data to a file with a different delimiter.
 # ------------------------------------------------------------------------------------------
@@ -83,8 +84,14 @@ P == P_new_delim
 # *Shout out to R fans!*
 # One other way to play around with data in Julia is to use a DataFrame.
 #
-# This requires loading the `DataFrames` package
+# This requires loading the `DataFrames` package.
+#
+# Run this command to install all the packages used in the "Julia for Data Science" project
+# -- (those packages are listed in this file: [`Project.toml`](/edit/introductory-
+# tutorials/broader-topics-and-ecosystem/intro-to-julia-for-data-science/Project.toml)):
 # ------------------------------------------------------------------------------------------
+
+] instantiate
 
 using DataFrames
 df = DataFrame(year = P[:,1], language = P[:,2])
@@ -92,21 +99,21 @@ df = DataFrame(year = P[:,1], language = P[:,2])
 # ------------------------------------------------------------------------------------------
 # You can access columns by header name, or column index.
 #
-# In this case, `df[1]` is equivalent to `df[:year]`.
+# In this case, `df[1]` is equivalent to `df.year` or `df[!, :year]`.
 #
-# Note that if we want to access columns by header name, we precede the header name with a
-# colon! In Julia, this means that the header names are treated as *symbols*.
+# Note that if we want to index columns by header name, we precede the header name with a
+# colon. In Julia, this means that the header names are treated as *symbols*.
 # ------------------------------------------------------------------------------------------
 
-df[:year]
+df.year
 
 # ------------------------------------------------------------------------------------------
 # **`DataFrames` provides some handy features when dealing with data**
 #
-# First, it introduces the "missing" type
+# First, it uses julia's "missing" type.
 # ------------------------------------------------------------------------------------------
 
-a = NA
+a = missing
 typeof(a)
 
 # ------------------------------------------------------------------------------------------
@@ -141,43 +148,32 @@ describe(iris)
 # You can create your own dataframe quickly as follows
 # ------------------------------------------------------------------------------------------
 
-foods = @data(["apple", "cucumber", "tomato", "banana"])
-calories = @data([NA,47,22,105])
+foods = ["apple", "cucumber", "tomato", "banana"]
+calories = [missing,47,22,105]
 typeof(calories)
 
+using Statistics
 mean(calories)
 
 # ------------------------------------------------------------------------------------------
-# NA ruins everything! 😑
+# `missing` ruins everything! 😑
 # ------------------------------------------------------------------------------------------
 
-mean(dropna(calories))
+mean(skipmissing(calories))
 
 # ------------------------------------------------------------------------------------------
 # In fact, `describe' will drop these values too
 # ------------------------------------------------------------------------------------------
 
-describe(calories)
+describe(DataFrame(c=calories))
 
 # ------------------------------------------------------------------------------------------
-# Note that `typeof(foods)` is `DataArrays.DataArray{String,1}`
+# Note that `typeof(calories)` is `Vector{Union{Missing, Int64},1}`
 #
-# We can easily convert it to a regular julia vector. Let's try this using `convert`:
+# If we want to replace all `missing` values a default value, we can do it like this:
 # ------------------------------------------------------------------------------------------
 
-newfoods = convert(Vector,foods)
-
-# ------------------------------------------------------------------------------------------
-# What if we try to do the same conversion from `DataArray` to `Vector` with `calories`?
-# ------------------------------------------------------------------------------------------
-
-newcalories = convert(Vector, calories)
-
-# ------------------------------------------------------------------------------------------
-# This doesn't work because we didn' indicate how to handle the NA values!
-# ------------------------------------------------------------------------------------------
-
-newcalories = convert(Vector,calories,0) # i.e. replace every NA with the value 0
+newcalories = replace(calories, missing => 0)
 
 # ------------------------------------------------------------------------------------------
 # Now let's create a `DataFrame` that shows foods and their calories from two `DataArray`s!
@@ -189,7 +185,7 @@ dataframe_calories = DataFrame(item=foods,calories=calories)
 # Let's generate a second `DataFrame` that shows foods and their prices.
 # ------------------------------------------------------------------------------------------
 
-prices = @data([0.85,1.6,0.8,0.6,])
+prices = [0.85,1.6,0.8,0.6,]
 
 dataframe_prices = DataFrame(item=foods,price=prices)
 

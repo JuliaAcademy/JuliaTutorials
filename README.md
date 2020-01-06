@@ -2,14 +2,14 @@
 
 This repository contains introductory tutorials for the [Julia language](http://julialang.org/) in the form of [Jupyter Notebooks](https://jupyter.org/about).
 
-## JuliaBox
+## JuliaBox (Running julia in your browser)
 
 These tutorials are installed by default on the [JuliaBox](https://juliabox.com/) environment, where you can run Julia in your browser
 through a hosted notebook server. This service what these tutorials were built for!
 
 Go to https://juliabox.com/ and make an account to start running Julia in your browser.
 
-## Installing on your Computer
+## Running Julia on your Computer
 
 You can also do these tutorials by installing `julia` on your computer, setting up Jupyter, and downloading this tutorial repository to your computer.
 If you're new to Julia, you can do that by following these steps:

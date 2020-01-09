@@ -63,14 +63,19 @@ end
 # Now let's use `for` loops to create some addition tables, where the value of every entry
 # is the sum of its row and column indices. <br>
 #
+# Note that we iterate over this array via column-major loops in order to get the best
+# performance. More information about fast indexing of multidimensional arrays inside nested
+# loops can be found at https://docs.julialang.org/en/v1/manual/performance-tips/#Access-
+# arrays-in-memory-order,-along-columns-1
+#
 # First, we initialize an array with zeros.
 # ------------------------------------------------------------------------------------------
 
 m, n = 5, 5
 A = fill(0, (m, n))
 
-for i in 1:m
-    for j in 1:n
+for j in 1:n
+    for i in 1:m
         A[i, j] = i + j
     end
 end
@@ -82,7 +87,7 @@ A
 
 B = fill(0, (m, n))
 
-for i in 1:m, j in 1:n
+for j in 1:n, i in 1:m
     B[i, j] = i + j
 end
 B

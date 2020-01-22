@@ -34,7 +34,7 @@ def export_script(exporter, model, os_path, contents_manager, **kwargs):
     script_fullpath = os.path.join(dir_path, ".nbexports", script_repopath)
     os.makedirs(os.path.dirname(script_fullpath), exist_ok=True)
     log.info("Saving script /%s", script_fullpath)
-    with io.open(script_fullpath, 'w', encoding='utf-8') as f:
+    with io.open(script_fullpath, 'w', encoding='utf-8', newline='\n') as f:
         f.write(script)
 
 

@@ -1,7 +1,8 @@
 
 # ------------------------------------------------------------------------------------------
 # # Julia 中的线性代数
-# > Based on work by Andreas Noack Jensen
+# > Based on work by Andreas Noack Jensen (MIT) (http://www.econ.ku.dk/phdstudent/noack/)
+# > with edits from Jane Herriman
 #
 # ## 目录
 #  - [基础线性代数操作](#基础线性代数操作)

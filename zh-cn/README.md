@@ -14,7 +14,7 @@
         - [简短版][简短版]
             - [00.上手 Jupyter notebook][short-00.上手Jupyter_notebook]
             - [01.了解 Julia][short-01.了解_Julia]
-            - [02.Julia 中的线性代数](./intro-to-julia-ZH/简短版/02.Julia中的线性代数.ipynb)
+            - [02.Julia 中的线性代数][short-02.Julia_中的线性代数]
             - [03.包的使用][short-03.包的使用]
             - [04.Julia 绘图简介][short-04.Julia_绘图简介]
             - [05.Julia 很快][short-05.Julia很快]
@@ -43,12 +43,14 @@
         - [10.1多重派发](./intro-to-julia-ZH/10.1多重派发.ipynb)
             （多重派发-第二部分）
         - [11.基本线性代数](./intro-to-julia-ZH/11.基本线性代数.ipynb)
+            （与[简短版][short-02.Julia_中的线性代数]前半部分一直，后面增加了解线性方程组解的讨论，并带有练习。）
 
 
 [完整版]: ./intro-to-julia-ZH/
 [简短版]: ./intro-to-julia-ZH/简短版/
 [short-00.上手Jupyter_notebook]: ./introductory-tutorials/intro-to-julia-ZH/简短版/00.上手Jupyter_notebook.ipynb
 [short-01.了解_Julia]: ./intro-to-julia-ZH/简短版/01.了解Julia.ipynb
+[short-02.Julia_中的线性代数]: ./intro-to-julia-ZH/简短版/02.Julia中的线性代数.ipynb
 [short-03.包的使用]: ./intro-to-julia-ZH/简短版/03.包的使用.ipynb
 [short-04.Julia_绘图简介]: ./intro-to-julia-ZH/简短版/04.Julia绘图简介.ipynb
 [short-05.Julia很快]: ./introductory-tutorials/intro-to-julia-ZH/简短版/05.Julia很快.ipynb

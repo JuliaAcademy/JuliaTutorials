@@ -10,7 +10,7 @@
 
 **已完成**  
 - introductory-tutorials
-    - [intro-to-julia-ZH](./intro-to-julia-ZH/)
+    - [intro-to-julia-ZH][完整版]
         - [简短版][简短版]
             - [00.上手 Jupyter notebook][short-00.上手Jupyter_notebook]
             - [01.了解 Julia][short-01.了解_Julia]
@@ -19,10 +19,6 @@
             - [04.Julia 绘图简介][short-04.Julia_绘图简介]
             - [05.Julia 很快][short-05.Julia很快]
             - [06.多重派发][short-06.多重派发]
-
-**待核查**
-- introductory-tutorials
-    - [intro-to-julia-ZH][完整版]
         - [00.上手 Jupyter notebook](./intro-to-julia-ZH/00.上手Jupyter_notebook.ipynb)
             （与[简短版][short-00.上手Jupyter_notebook]重复）
         - [01.新手入门](./intro-to-julia-ZH/01.新手入门.ipynb)

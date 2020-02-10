@@ -39,9 +39,9 @@
         - [09.Julia 很快](./intro-to-julia-ZH/09.Julia很快.ipynb)
             （与[简短版][short-05.Julia很快]重复）
         - [10.多重派发](./intro-to-julia-ZH/10.多重派发.ipynb)
-            （与[简短版][short-06.多重派发]略有区别）
+            （与[简短版][short-06.多重派发]最后一部分的例子略有区别，多了练习。）
         - [10.1多重派发](./intro-to-julia-ZH/10.1多重派发.ipynb)
-            （与[简短版][short-06.多重派发]略有区别）
+            （多重派发-第二部分）
         - [11.基本线性代数](./intro-to-julia-ZH/11.基本线性代数.ipynb)
 
 

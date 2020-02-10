@@ -1,39 +1,55 @@
-# 中文版JuliaBoxTutorials
+# 中文版 JuliaBox 教程
 
-翻译了基础部分，剩下的比较“高级”的部分。。我不会
+翻译了基础部分
 
-已完成： <br>
+**更新建议**
++ 如果只是同步英文翻译或者更新内容，建议先编辑[简短版][简短版]，然后同步到[完整版][完整版]
++ 要增加新的内容，则直接在[完整版][完整版]中增加。视内容重要度，有选择的同步到简短版中。
++ 如果更新幅度较大，让[简短版][简短版]与[完整版][完整版]的差别变大。则记得更新以下的说明语句。
+    删除“与简短版重复”或“略有区别”等语句。
+
+**已完成**  
 - introductory-tutorials
-    - intro-to-julia-ZH
-        - 简短版
-            - [00.上手Jupyter_notebook](./introductory-tutorials/intro-to-julia-ZH/简短版/00.上手Jupyter_notebook.ipynb)
-            - [01.了解Julia](./introductory-tutorials/intro-to-julia-ZH/简短版/01.了解Julia.ipynb)
-            - [02.Julia中的线性代数](./introductory-tutorials/intro-to-julia-ZH/简短版/02.Julia中的线性代数.ipynb)
-            - [03.包的使用](./introductory-tutorials/intro-to-julia-ZH/简短版/03.包的使用.ipynb)
-            - [04.Julia绘图简介](./introductory-tutorials/intro-to-julia-ZH/简短版/04.Julia绘图简介.ipynb)
-            - [05.Julia很快](./introductory-tutorials/intro-to-julia-ZH/简短版/05.Julia很快.ipynb)
-            - [06.多重派发](./introductory-tutorials/intro-to-julia-ZH/简短版/06.多重派发.ipynb)
-        - [00.上手Jupyter_notebook](./introductory-tutorials/intro-to-julia-ZH/00.上手Jupyter_notebook.ipynb)（与简短版重复）
-        - [01.新手入门](./introductory-tutorials/intro-to-julia-ZH/01.新手入门.ipynb)
-        - [02.字符串](./introductory-tutorials/intro-to-julia-ZH/02.字符串.ipynb)
-        - [03.数据结构](./introductory-tutorials/intro-to-julia-ZH/03.数据结构.ipynb)
-        - [04.循环.ipynb](./introductory-tutorials/intro-to-julia-ZH/04.循环.ipynb.ipynb)
-        - [05.条件判断](./introductory-tutorials/intro-to-julia-ZH/05.条件判断.ipynb)
-        - [06.函数](./introductory-tutorials/intro-to-julia-ZH/06.函数.ipynb)（与简短版略有区别）
-        - [07.包（Packages）](./introductory-tutorials/intro-to-julia-ZH/07.包（Packages）.ipynb)（比简短版多了练习）
-        - [08.绘图](./introductory-tutorials/intro-to-julia-ZH/08.绘图.ipynb)（与简短版略有区别）
-        - [09.Julia很快](./introductory-tutorials/intro-to-julia-ZH/09.Julia很快.ipynb)（与简短版重复）
-        - [10.多重派发](./introductory-tutorials/intro-to-julia-ZH/10.多重派发.ipynb)（与简短版略有区别）
-        - [10.1多重派发](./introductory-tutorials/intro-to-julia-ZH/10.1多重派发.ipynb)（与简短版略有区别）
-        - [11.基本线性代数](./introductory-tutorials/intro-to-julia-ZH/11.基本线性代数.ipynb)
+    - [intro-to-julia-ZH](./intro-to-julia-ZH/)
+        - [简短版][简短版]
+            - [00.上手 Jupyter notebook][short-00.上手Jupyter_notebook]
+            - [01.了解 Julia](./intro-to-julia-ZH/简短版/01.了解Julia.ipynb)
+            - [02.Julia 中的线性代数](./intro-to-julia-ZH/简短版/02.Julia中的线性代数.ipynb)
+            - [03.包的使用](./intro-to-julia-ZH/简短版/03.包的使用.ipynb)
+            - [04.Julia 绘图简介](./intro-to-julia-ZH/简短版/04.Julia绘图简介.ipynb)
+            - [05.Julia 很快][short-05.Julia很快]
+            - [06.多重派发](./intro-to-julia-ZH/简短版/06.多重派发.ipynb)
+
+**待核查**
+- introductory-tutorials
+    - [intro-to-julia-ZH][完整版]
+        - [00.上手 Jupyter notebook](./intro-to-julia-ZH/00.上手Jupyter_notebook.ipynb)
+            （与[简短版][short-00.上手Jupyter_notebook]重复）
+        - [01.新手入门](./intro-to-julia-ZH/01.新手入门.ipynb)
+        - [02.字符串](./intro-to-julia-ZH/02.字符串.ipynb)
+        - [03.数据结构](./intro-to-julia-ZH/03.数据结构.ipynb)
+        - [04.循环](./intro-to-julia-ZH/04.循环.ipynb)
+        - [05.条件判断](./intro-to-julia-ZH/05.条件判断.ipynb)
+        - [06.函数](./intro-to-julia-ZH/06.函数.ipynb)
+            （与[简短版中的函数一节][short-01.了解 Julia]略有区别）
+        - [07.包（Packages）](./intro-to-julia-ZH/07.包（Packages）.ipynb)
+            （比[简短版][short-03.包的使用]多了练习）
+        - [08.绘图](./intro-to-julia-ZH/08.绘图.ipynb)
+            （与[简短版][short-04.Julia 绘图简介]略有区别）
+        - [09.Julia 很快](./intro-to-julia-ZH/09.Julia很快.ipynb)
+            （与[简短版][short-05.Julia很快]重复）
+        - [10.多重派发](./intro-to-julia-ZH/10.多重派发.ipynb)
+            （与[简短版][short-06.多重派发]略有区别）
+        - [10.1多重派发](./intro-to-julia-ZH/10.1多重派发.ipynb)
+            （与[简短版][short-06.多重派发]略有区别）
+        - [11.基本线性代数](./intro-to-julia-ZH/11.基本线性代数.ipynb)
 
 
-
-待解决： <br>
-- [02.Julia中的线性代数](./introductory-tutorials/intro-to-julia-ZH/简短版/02.Julia中的线性代数.ipynb)中最后一段涉及到矩阵的优化存储？暂未翻译
-- [05.Julia很快](./introductory-tutorials/intro-to-julia-ZH/简短版/05.Julia很快.ipynb)在Windows下没有装gcc，所以没有测试，担心各种多余且重复的Python包安装在C盘Python也没有测试
-- 线性代数让我懵逼，第12篇因子分解啥的不懂
-
-
-
-
+[完整版]: ./intro-to-julia-ZH/
+[简短版]: ./intro-to-julia-ZH/简短版/
+[short-00.上手Jupyter_notebook]: ./introductory-tutorials/intro-to-julia-ZH/简短版/00.上手Jupyter_notebook.ipynb
+[short-01.了解 Julia]: ./intro-to-julia-ZH/简短版/01.了解Julia.ipynb
+[short-03.包的使用]: ./intro-to-julia-ZH/简短版/03.包的使用.ipynb
+[short-04.Julia 绘图简介]: ./intro-to-julia-ZH/简短版/04.Julia绘图简介.ipynb
+[short-05.Julia很快]: ./introductory-tutorials/intro-to-julia-ZH/简短版/05.Julia很快.ipynb
+[short-06.多重派发]: ./intro-to-julia-ZH/简短版/06.多重派发.ipynb

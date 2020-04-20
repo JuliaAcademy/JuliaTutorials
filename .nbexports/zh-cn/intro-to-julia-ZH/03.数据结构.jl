@@ -288,7 +288,8 @@ flexible_phonebook = Dict()
 # 给`flexible_phonebook`添加一个键为"Emergency"值为整数`911`的条目。
 # ------------------------------------------------------------------------------------------
 
-flexible_phonebook[""] = 911
+# 在此作答
+
 
 @assert haskey(flexible_phonebook, "Emergency")
 

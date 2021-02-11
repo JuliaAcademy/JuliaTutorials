@@ -30,7 +30,7 @@ x = fill(1.0, (3))
 # ------------------------------------------------------------------------------------------
 # 注意 $A$ 的类型为 `Array{Int64,2}`，而 $x$ 的类型为 `Array{Float64,1}`。
 #
-# Julia 定义向量 `Vector{Type}` 的别名为 `Array{Type,1}`，矩阵`Matrix{Type}` 的别名为 `Array{Type,2}`。
+# Julia 定义 `Array{Type,1}` 的别名为向量 `Vector{Type}`，`Array{Type,2}` 的别名为矩阵 `Matrix{Type}` 。
 #
 # 许多线性代数的基础操作和其他语言一样
 #

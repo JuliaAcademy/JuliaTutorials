@@ -302,7 +302,9 @@ fibonacci
 # ------------------------------------------------------------------------------------------
 # #### 3.5
 # Why can we add an integer as a value to `flexible_phonebook` but not `myphonebook`? How
-# could we have initialized `myphonebook` so that it would accept integers as values?
+# could we have initialized `myphonebook` so that it would accept integers as values?  
+# (hint: try using [Julia's documentation for dictionaries](https://docs.julialang.org/en/
+# v1/base/collections/#Dictionaries))
 # ------------------------------------------------------------------------------------------
 
 

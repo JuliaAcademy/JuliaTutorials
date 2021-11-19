@@ -1,2 +1,3 @@
 webio_jupyter_extension
-jupyterlab-plotly
+ipywidgets
+jupyter_contrib_nbextensions

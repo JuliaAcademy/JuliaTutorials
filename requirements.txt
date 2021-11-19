@@ -1,1 +1,2 @@
 webio_jupyter_extension
+jupyterlab-plotly

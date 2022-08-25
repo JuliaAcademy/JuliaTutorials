@@ -154,7 +154,7 @@ import Base: *, +, ^
 
 pow(n) = x -> x^n
 
-myexp = sum(1/factorial(big(n)) * pow(n) for n in 0:100)   # taylor series not efficient!
+myexp = x -> sum(1/factorial(big(n)) * pow(n)(x) for n in 0:100)   # taylor series not efficient!
 
 [myexp(1); exp(1); exp(big(1))]
 

@@ -150,7 +150,7 @@ import Base: *, +, ^
 
 pow(n) = x -> x^n
 
-myexp = sum(1/factorial(big(n)) * pow(n) for n in 0:100)   # 效率低的泰勒级数！
+myexp = x -> sum(1/factorial(big(n)) * pow(n)(x) for n in 0:100)   # 效率低的泰勒级数！
 
 [myexp(1); exp(1); exp(big(1))]
 
